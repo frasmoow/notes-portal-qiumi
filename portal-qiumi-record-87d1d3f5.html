@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>球迷网 · 简明观赛指南</title>
+    <style>
+        /* 重置与基调 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e2a3a;
+            background: #f4f6fa;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 深色头图 – 带有纹理感 */
+        .hero {
+            background: linear-gradient(145deg, #0b1828 0%, #142c3e 100%);
+            padding: 3.2rem 1.5rem 2.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%; left: -20%;
+            width: 140%; height: 140%;
+            background: radial-gradient(circle at 30% 50%, rgba(60, 130, 200, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #e6edf5;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #b0c9df;
+            max-width: 640px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 正文浅色区容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        /* 卡片 / 区块 */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem 2rem 2rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0,0,0,0.02);
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 20, 30, 0.06);
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 550;
+            margin-bottom: 1rem;
+            border-left: 5px solid #3a7ca5;
+            padding-left: 1rem;
+            color: #163A5C;
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 530;
+            margin: 1.2rem 0 0.6rem;
+            color: #1f4b6e;
+        }
+        .card p {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card li {
+            padding: 0.4rem 0 0.4rem 1.8rem;
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+        .card li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #3a7ca5;
+            font-weight: bold;
+        }
+
+        /* 特点网格 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .feature-item {
+            background: #f0f5fc;
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            font-weight: 500;
+            color: #153b57;
+            border: 1px solid #dde6f0;
+        }
+        .feature-item small {
+            display: block;
+            font-weight: 400;
+            color: #3d5d78;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        /* 强调色链接 */
+        a {
+            color: #22668d;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1.5px;
+            text-decoration-color: #b0cde0;
+            transition: color 0.2s, text-decoration-color 0.2s;
+        }
+        a:hover {
+            color: #0b3a56;
+            text-decoration-color: #22668d;
+        }
+
+        /* FAQ 摘要 */
+        .faq-item {
+            border-bottom: 1px solid #e2e9f0;
+            padding: 1rem 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #1f4b6e;
+            margin-bottom: 0.2rem;
+        }
+        .faq-item p {
+            margin: 0.2rem 0 0;
+            color: #30526b;
+        }
+
+        /* 提示条 – 克制风格 */
+        .tip-note {
+            background: #e9f0f9;
+            border-left: 6px solid #4d7ea8;
+            border-radius: 0 12px 12px 0;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .tip-note p {
+            margin: 0.2rem 0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero .sub { font-size: 0.95rem; }
+            .card { padding: 1.5rem 1.2rem; }
+            .feature-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 400px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        /* 页脚装饰 */
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #657e96;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #d5e0ea;
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <h1>球迷网 · 观赛指南</h1>
+    <div class="sub">从赛程查询到深度内容，一份简明导航</div>
+</header>
+
+<main class="container">
+
+    <!-- 摘要卡片：定位与价值 -->
+    <div class="card">
+        <h2>关于球迷网</h2>
+        <p><a href="https://portal-qiumi.com">球迷网</a>是一个专注于足球及多项体育赛事信息整合的平台，内容涵盖赛程预告、球队数据、历史交锋以及赛后讨论。无论你是关注五大联赛，还是追踪国内赛事，这里都能提供结构清晰的信息参照。</p>
+        <p>不同于社交媒体的碎片化推送，球迷网更强调信息的可查与归类——你可以按联赛、日期或球队来筛选内容，减少无关信息的干扰。</p>
+    </div>
+
+    <!-- 特点与亮点：卡片网格 -->
+    <div class="card">
+        <h2>平台亮点</h2>
+        <div class="feature-grid">
+            <div class="feature-item">赛事日历<small>按周/月视图呈现，方便规划观赛时间</small></div>
+            <div class="feature-item">数据档案<small>球队近况、射手榜、积分走势一目了然</small></div>
+            <div class="feature-item">讨论区<small>具备分版块讨论，话题围绕比赛本身</small></div>
+            <div class="feature-item">多端适配<small>移动端与桌面端均可流畅浏览</small></div>
+        </div>
+        <p style="margin-top: 1.2rem;">这些功能模块并非大而全的堆砌，而是围绕“让看球更有条理”这一目标来组织。如果你希望快速了解某支球队的下一轮对手，或回顾近五场交锋记录，<a href="https://portal-qiumi.com">球迷网</a>的导航逻辑可以帮你节省时间。</p>
+    </div>
+
+    <!-- 使用建议 + 场景 -->
+    <div class="card">
+        <h2>使用建议与常见场景</h2>
+        <p>以下是根据不同需求整理的几种使用方式，供新访客参考：</p>
+
+        <h3>赛前准备</h3>
+        <p>比赛日当天或前一日，可先通过首页赛程表确认开球时间、转播信息（若平台有标注）。同时查看球队近期状态与伤病简报，辅助形成自己的观赛预期。</p>
+
+        <h3>赛后回顾</h3>
+        <p>比赛结束后，相关讨论区通常会出现战术分析和评分帖。你可以按板块浏览，也可以直接搜索球队名称查找专门讨论。注意区分事实信息与个人观点，理性参与交流。</p>
+
+        <h3>长期追踪</h3>
+        <p>如果你是某支球队或联赛的长期关注者，建议利用平台的收藏或关注功能（如提供），将常用页面加入书签，以便每天快速查看积分变化。</p>
+
+        <div class="tip-note">
+            <p><strong>访问提醒：</strong> 球迷网提供的是信息聚合与社区讨论空间，所有数据均源于公开赛事统计。平台本身不进行投注引导，也不保证第三方链接的实时准确性。请根据实际需求判断内容的参考价值。</p>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="card">
+        <h2>常见疑问摘要</h2>
+        <div class="faq-item">
+            <strong>是否需要注册才能浏览？</strong>
+            <p>大部分赛程与数据内容可直接查看，部分互动功能（如发帖、回复）可能需要注册账号。具体权限以实际页面提示为准。</p>
+        </div>
+        <div class="faq-item">
+            <strong>数据更新频率如何？</strong>
+            <p>赛程与比分类数据通常在比赛结束后数小时内更新，深度数据（如球员统计）可能会有延迟，建议以官方赛事机构发布为准。</p>
+        </div>
+        <div class="faq-item">
+            <strong>移动端体验如何？</strong>
+            <p>页面采用响应式布局，在手机浏览器上可正常浏览核心内容。如需更沉浸的体验，可尝试将站点添加到主屏幕（PWA 支持情况视浏览器而定）。</p>
+        </div>
+        <p style="margin-top: 1rem;">如果仍有其他疑问，可以直接在 <a href="https://portal-qiumi.com">球迷网</a> 的页脚或帮助区域寻找更多说明。</p>
+    </div>
+
+    <!-- 结尾 · 可信克制的说明 -->
+    <div class="card" style="background: #f1f7fe;">
+        <p style="font-size: 0.95rem; margin-bottom: 0.3rem;"><strong>最后说明</strong></p>
+        <p style="font-size: 0.95rem;">本页面为球迷网的功能与内容简介，不构成任何形式的推荐或保证。互联网信息繁杂，建议你根据自身需要筛选和使用。祝观赛愉快。</p>
+    </div>
+
+    <div class="footer-note">
+        <span>球迷网 · 信息聚合平台</span>
+    </div>
+
+</main>
+
+</body>
+</html>
